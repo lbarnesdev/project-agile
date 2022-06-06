@@ -1,0 +1,110 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}-odoo
+  namespace: {{ .Release.Namespace }}
+spec:
+  selector:
+    matchLabels:
+      {{- include "infra.selectorLabels" . | nindent 6 }}-odoo
+  template:
+    metadata:
+      labels:
+        {{- include "infra.selectorLabels" . | nindent 8 }}-odoo
+    spec:
+      initContainers:
+      - name: {{ .Release.Name }}-busybox
+        image: busybox:latest
+        command:
+        - sh
+        - -c
+        - "mkdir -p /var/lib/odoo/.ssh && cp /tmp/.ssh/* /var/lib/odoo/.ssh/; sleep 10"
+        volumeMounts:
+        - name: ssh-keys
+          mountPath: /tmp/.ssh
+        - name: webdata
+          mountPath: /var/lib/odoo
+      containers:
+      - name: {{ .Release.Name }}-odoo
+        image: {{ .Values.odoo.image }}
+        args:
+        - -u
+        - base
+        - --dev=reload
+        resources:
+          limits:
+            memory: {{ .Values.odoo.memory }}
+            cpu: {{ .Values.odoo.cpu }}
+        env:
+        - name: PASSWORD
+          value: odoo
+        ports:
+        - containerPort: {{ .Values.service.port.odooWeb }}
+          name: web
+        - containerPort: {{ .Values.service.port.odooRPC }}
+          name: rpc
+        volumeMounts:
+        - name: config
+          mountPath: /etc/odoo
+        - name: webdata
+          mountPath: /var/lib/odoo
+        - name: addons
+          mountPath: /mnt/extra-addons
+      volumes:
+        - name: ssh-keys
+          secret:
+            secretName: ssh-keys
+            items:
+            - key: ssh-privatekey
+              path: id_rsa
+            - key: ssh-publickey
+              path: id_rsa.pub
+        - name: config
+          configMap:
+            name: {{ .Release.Name }}-odoo-conf
+        - name: webdata
+          persistentVolumeClaim:
+            claimName: {{ .Release.Name }}-webdata
+        - name: addons
+          persistentVolumeClaim:
+            claimName: {{ .Release.Name }}-addons
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}-postgres
+  namespace: {{ .Release.Namespace }}
+spec:
+  selector:
+    matchLabels:
+      {{- include "infra.selectorLabels" . | nindent 6 }}-postgres
+  template:
+    metadata:
+      labels:
+        {{- include "infra.selectorLabels" . | nindent 8 }}-postgres
+    spec:
+      containers:
+      - name: {{ .Release.Name }}-postgres
+        image: {{ .Values.postgres.image }}
+        resources:
+          limits:
+            memory: {{ .Values.postgres.memory }}
+            cpu: {{ .Values.postgres.cpu }}
+        env:
+        - name: POSTGRES_USER
+          value: odoo
+        - name: POSTGRES_PASSWORD
+          value: odoo
+        - name: PGDATA
+          value: /var/lib/postgresql/pgdata
+        ports:
+        - containerPort: {{ .Values.service.port.postgres }}
+          name: psql
+        volumeMounts:
+        - name: pgdata
+          mountPath: /var/lib/postgresql/data
+      volumes:
+      - name: pgdata
+        persistentVolumeClaim:
+          claimName: {{ .Release.Name }}-pgdata

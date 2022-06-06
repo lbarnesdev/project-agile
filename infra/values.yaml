@@ -1,0 +1,48 @@
+# Default values for infra.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+replicaCount: 1
+
+odoo:
+  image: lbarnesdev/odoo-dev:latest
+  cpu: "500m"
+  memory: "1Gi"
+  webdata:
+    storage: 1Gi
+    className: ceph-filesystem
+  addons:
+    storage: 1Gi
+    className: ceph-filesystem
+
+postgres:
+  image: postgres:14
+  memory: "1Gi"
+  cpu: "500m"
+  data:
+    storage: "1Gi"
+    className: ceph-block
+
+imagePullSecrets: []
+nameOverride: ""
+fullnameOverride: ""
+
+podAnnotations: {}
+
+podSecurityContext: {}
+  # fsGroup: 2000
+
+securityContext: {}
+  # capabilities:
+  #   drop:
+  #   - ALL
+  # readOnlyRootFilesystem: true
+  # runAsNonRoot: true
+  # runAsUser: 1000
+
+service:
+  type: ClusterIP
+  port:
+    odooWeb: 8069
+    odooRPC: 8072
+    postgres: 5432

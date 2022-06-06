@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Release.Name }}-odoo-conf
+  namespace: {{ .Release.Namespace }}
+data:
+  odoo.conf: |
+{{ tpl (.Files.Get "conf/odoo.conf") . | indent 4 }}

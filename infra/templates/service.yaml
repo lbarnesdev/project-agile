@@ -1,0 +1,33 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "infra.fullname" . }}-odoo
+  labels:
+    {{- include "infra.labels" . | nindent 4 }}-odoo
+spec:
+  type: {{ .Values.service.type }}
+  ports:
+    - port: {{ .Values.service.port.odooWeb }}
+      targetPort: {{ .Values.service.port.odooWeb }}
+      protocol: TCP
+      name: http
+    - port: {{ .Values.service.port.odooRPC }}
+      targetPort: {{ .Values.service.port.odooRPC }}
+      protocol: TCP
+      name: rpc
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "infra.fullname" . }}-postgres
+  labels:
+    {{- include "infra.labels" . | nindent 4 }}-postgres
+spec:
+  type: {{ .Values.service.type }}
+  ports:
+    - port: {{ .Values.service.port.postgres }}
+      targetPort: {{ .Values.service.port.postgres }}
+      protocol: TCP
+      name: psql
+  selector:
+    {{- include "infra.selectorLabels" . | nindent 4 }}-postgres
