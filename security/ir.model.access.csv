@@ -1,2 +1,2 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_project-agile_project-agile,project-agile.project-agile,model_project-agile_project-agile,base.group_user,1,1,1,1
+access_story_point,project.agile.story_point,model_project_agile_story_point,base.group_user,1,1,1,1
