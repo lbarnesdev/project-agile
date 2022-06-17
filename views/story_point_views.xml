@@ -35,10 +35,16 @@
       </field>
     </record>
 
-    <search>
-      <field name="size" string="Size"/>
-      <field name="description" string="Description"/>
-    </search>
+    <record id="project_agile_story_point_view_search" model="ir.ui.view">
+      <field name="name">project.agile.story_point.view.search</field>
+      <field name="model">project.agile.story_point</field>
+      <field name="arch" type="xml">
+        <search string="Story Point">
+          <field name="size" string="Size"/>
+          <field name="description" string="Description"/>
+        </search>
+      </field>
+    </record>
 
     <menuitem
       id="project_agile_menu_project_config_story_point"
