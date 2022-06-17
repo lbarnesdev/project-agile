@@ -12,6 +12,7 @@
       <field name="arch" type="xml">
         <tree string="Story Point" default_order="size,description">
           <field name="size" string="Size" />
+          <field name="task_ids" string="Tasks"/>
           <field name="description" string="Description" />
         </tree>
       </field>
