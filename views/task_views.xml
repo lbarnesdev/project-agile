@@ -9,7 +9,7 @@
                     <field name="story_point_id" widget="slection" string="Story Point"/>
                 </xpath>
             </field>
-        </record>>
+        </record>
         <record id="project_task_inherit_kanban" model="ir.ui.view">
             <field name="name">project.agile.task.kanban.inherit</field>
             <field name="model">project.task</field>
