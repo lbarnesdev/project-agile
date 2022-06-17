@@ -30,6 +30,7 @@
             <group name="main">
               <field name="size" string="Size" />
               <field name="description" string="Description"/>
+              <field name="task_ids" string="Tasks"/>
             </group>
           </sheet>
         </form>
