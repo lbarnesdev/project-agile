@@ -7,4 +7,4 @@ class ProjectAgileStoryPoint(models.Model):
     _order = 'size,description'
     size = fields.Integer('size')
     description = fields.Html('description')
-    task_ids = fields.One2many('project.task', 'storypoint_id', string='Task')
+    task_ids = fields.One2many('project.task', 'story_point_id', string='Task')
