@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 {
-    'name': "project-agile",
+    'name': "project_agile",
 
     'summary': """
         modify project to fit an agile project kanban""",
