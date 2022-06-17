@@ -10,7 +10,7 @@
     """,
 
     'author': "Good Medicine Solutions",
-    'license': "OPL-1"
+    'license': "OPL-1",
     'website': "https://www.barnesfam.us",
 
     # Categories can be used to filter modules in modules listing
