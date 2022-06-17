@@ -1,0 +1,16 @@
+<odoo>
+  <data>
+    <record model="ir.actions.act_window" id="project_agile_story_point_action_window">
+      <field name="name">Story Point action</field>
+      <field name="res_model">project.agile.story_point</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+    <menuitem
+      id="project_agile_menu_project_config_story_point"
+      name="Project agile story point menu"
+      action="project_agile_story_point_action_window"
+      groups="project.group_project_manager"
+      parent="project.menu_project_config"
+      sequence="20"/>
+  </data>
+</odoo>
