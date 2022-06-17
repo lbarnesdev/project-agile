@@ -26,6 +26,7 @@
     'data': [
         'security/ir.model.access.csv',
         'views/story_point_views.xml',
+        'views/task_views.xml',
         'views/templates.xml',
     ],
     # only loaded in demonstration mode

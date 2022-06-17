@@ -1,0 +1,24 @@
+<odoo>
+    <data>
+        <record id="project_view_task_form_inherit_project_agile" model="ir.ui.view">
+            <field name="name">project.agile.task.view.form.inherit</field>
+            <field name="model">project.task</field>
+            <field name="inherit_id" ref="project.view_task_form2"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='partner_id']" position="after">
+                    <field name="story_point_id" widget="slection" string="Story Point"/>
+                </xpath>
+            </field>
+        </record>>
+        <record id="project_task_inherit_kanban" model="ir.ui.view">
+            <field name="name">project.agile.task.kanban.inherit</field>
+            <field name="model">project.task</field>
+            <field name="inherit_id" ref="project.view_task_kanban"/>
+            <field name="arch" type="xml">
+                <xpath expr="//div[@class='oe_kanban_bottom_left']/field[@name='priority']" position="replace">
+                    <field name="story_point_id" widget="selection" string="SP"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>
