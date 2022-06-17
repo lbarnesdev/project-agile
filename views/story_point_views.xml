@@ -5,6 +5,7 @@
       <field name="res_model">project.agile.story_point</field>
       <field name="view_mode">tree,form</field>
     </record>
+
     <record id="project_agile_story_point_view_tree" model="ir.ui.view">
       <field name="name">project.agile.story_point.view.tree</field>
       <field name="model">project.agile.story_point</field>
@@ -15,11 +16,15 @@
         </tree>
       </field>
     </record>
+
     <record id="project_agile_story_point_view_form" model="ir.ui.view">
       <field name="name">project.agile.story_point.view.form</field>
       <field name="model">project.agile.story_point</field>
       <field name="arch" type="xml">
         <form string="Story Point">
+          <header>
+            <field name="size" string="Size"/>
+          </header>
           <sheet>
             <group name="main">
               <field name="size" string="Size" />
@@ -29,6 +34,12 @@
         </form>
       </field>
     </record>
+
+    <search>
+      <field name="size" string="Size"/>
+      <field name="description" string="Description"/>
+    </search>
+
     <menuitem
       id="project_agile_menu_project_config_story_point"
       name="Story Points"
