@@ -30,7 +30,7 @@
             <group name="main">
               <field name="size" string="Size" />
               <field name="description" string="Description"/>
-              <field name="task_ids" string="Tasks"/>
+              <field name="task_ids" string="Tasks" widget="many2many_tags"/>
             </group>
           </sheet>
         </form>
